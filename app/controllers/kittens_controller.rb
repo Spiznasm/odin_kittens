@@ -1,4 +1,7 @@
 class KittensController < ApplicationController
+
+  before_action :set_kitten, only: [:show, :edit, :update, :destroy]
+
   def new
     @kitten = Kitten.new
   end
@@ -24,8 +27,9 @@ class KittensController < ApplicationController
   end
 
   def update
+    
     respond_to do |format|
-      if @kitten.update(kitten_params)
+      if @kitten.update_attributes(kitten_params)
         format.html { redirect_to @kitten, notice: "#{@kitten.name} has been updated" }
 
       else
@@ -39,9 +43,20 @@ class KittensController < ApplicationController
   end
 
   def destroy
+    
     @kitten.destroy
     respond_to do |format|
       format.html { redirect_to kittens_url, notice: "A kitten has been destroyed... NOOOOO!" }
     end
+  end
+
+  private
+
+  def kitten_params
+    params.require(:kitten).permit(:name, :age, :cuteness, :softness)
+  end
+
+  def set_kitten
+    @kitten = Kitten.find(params[:id])
   end
 end

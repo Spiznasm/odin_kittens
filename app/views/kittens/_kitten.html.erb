@@ -1,0 +1,2 @@
+<p class='kitten'><%= kitten.name %> is <%= "#{pluralize(kitten.age, 'year')}" %> old and is <%= kitten.cuteness %> and soft as <%= kitten.softness %></p>
+<%= link_to 'edit', edit_kitten_path(kitten) %> <%= link_to 'delete', kitten, method: :delete, data: { confirm: 'Really?' } %>
